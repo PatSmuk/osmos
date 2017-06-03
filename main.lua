@@ -56,9 +56,16 @@ function love.update(dt)
             if other_i < i then
                 -- If they intersect, set the intersection status for this circle and the other.
                 -- Don't care if it's already intersecting a third circle here.
-                if intersectionAmount(circle, other_circle) > 0 then
+                local intersection = intersectionAmount(circle, other_circle)
+                if intersection > 0 then
                     circle.intersects = true
                     other_circle.intersects = true
+
+                    if circle.r > other_circle.r then
+                        other_circle.r = math.max(other_circle.r - intersection, 0)
+                    else
+                        circle.r = math.max(circle.r - intersection, 0)
+                    end
                 end
             end
         end
