@@ -108,6 +108,8 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.clear(6, 14, 28)
+
     -- For each circle...
     for i, circle in ipairs(circles) do
         -- If it intersects another draw it red.
@@ -115,7 +117,7 @@ function love.draw()
             love.graphics.setColor(239, 67, 67)
         else
             -- Otherwise make it white.
-            love.graphics.setColor(255, 255, 255)
+            love.graphics.setColor(72, 138, 242)
         end
         -- Draw the circle.
         love.graphics.circle("fill", circle.x, circle.y, circle.r)
