@@ -15,9 +15,9 @@ for i = 1, 20 do
     })
 end
 
-function circlesIntersect(c1, c2)
+function intersectionAmount(c1, c2)
     local dist = math.sqrt(math.pow(c1.x - c2.x, 2) + math.pow(c1.y - c2.y, 2))
-    return dist < c1.r + c2.r
+    return math.max(c1.r + c2.r - dist, 0)
 end
 
 function love.update(dt)
@@ -56,7 +56,7 @@ function love.update(dt)
             if other_i < i then
                 -- If they intersect, set the intersection status for this circle and the other.
                 -- Don't care if it's already intersecting a third circle here.
-                if circlesIntersect(circle, other_circle) then
+                if intersectionAmount(circle, other_circle) > 0 then
                     circle.intersects = true
                     other_circle.intersects = true
                 end
