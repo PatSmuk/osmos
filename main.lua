@@ -2,6 +2,7 @@ local circles = {}
 
 local window_width = love.graphics.getWidth()
 local window_height = love.graphics.getHeight()
+local spawn_timer = 12
 
 -- Initialize 20 circles with random parameters.
 for i = 1, 20 do
@@ -30,6 +31,20 @@ function love.update(dt)
             r = math.random(40) + 12,           -- 13..53
             intersects = false
         })
+    end
+
+    if spawn_timer > 0 then
+        spawn_timer = spawn_timer - 1
+    else
+        table.insert(circles, {
+            x = math.random(window_width),      -- 1..(window width)
+            y = math.random(window_height),     -- 1..(window height)
+            v_x = (math.random() - 0.5) * 50,   -- (-25)..25
+            v_y = (math.random() - 0.5) * 50,   -- (-25)..25
+            r = math.random(40) + 12,           -- 13..53
+            intersects = false
+        })
+        spawn_timer = 12
     end
 
     -- For each circle...
