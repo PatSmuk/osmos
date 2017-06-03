@@ -21,6 +21,17 @@ function intersectionAmount(c1, c2)
 end
 
 function love.update(dt)
+    if love.keyboard.isDown("space") then
+        table.insert(circles, {
+            x = math.random(window_width),      -- 1..(window width)
+            y = math.random(window_height),     -- 1..(window height)
+            v_x = (math.random() - 0.5) * 50,   -- (-25)..25
+            v_y = (math.random() - 0.5) * 50,   -- (-25)..25
+            r = math.random(40) + 12,           -- 13..53
+            intersects = false
+        })
+    end
+
     -- For each circle...
     for i, circle in ipairs(circles) do
         -- Reset the intersection status to false.
@@ -68,6 +79,15 @@ function love.update(dt)
                     end
                 end
             end
+        end
+    end
+
+    -- For each circle (backwards)...
+    for i = #circles, 1, -1 do
+        -- If the circle has radius 0...
+        if circles[i].r == 0 then
+            -- Get rid of it!
+            table.remove(circles, i)
         end
     end
 end
